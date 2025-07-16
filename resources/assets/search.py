@@ -1,4 +1,16 @@
-from serpapi import GoogleSearch
+import sys
+import os
+
+# Caminho absoluto até a pasta 'contents'
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))  # sobe de assets/ para resources/
+CONTENTS_PATH = os.path.join(BASE_DIR, 'contents')
+
+# Adiciona ao sys.path
+sys.path.append(os.path.join(CONTENTS_PATH, 'googleSearch'))
+sys.path.append(os.path.join(CONTENTS_PATH, 'playSound'))
+
+# Agora pode importar
+from GoogleSearch import GoogleSearch
 from playsound import playsound
 import time
 
