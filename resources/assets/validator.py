@@ -17,21 +17,3 @@ def gerar_cpfs_validos(meio="***"):
         cpf_completo = cpf_base + dv
         resultados.append(cpf_completo)
     return resultados
-
-# Gerar todos os CPFs válidos
-cpfs_possiveis = gerar_cpfs_validos()
-
-# Função para formatar CPF no estilo "XXX.XXX.XXX-YY"
-def formatar_cpf(cpf):
-    return f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
-# Função para formatar CPF no estilo "XXX.XXX.XXX-YY"
-
-def formatar_cpf2(cpf):
-    return f"{cpf[:3]}{cpf[3:6]}{cpf[6:9]}{cpf[9:]}"
-
-# Salvar os CPFs formatados em um arquivo .txt
-with open("possibilidades.txt", "w") as f:
-    for cpf in cpfs_possiveis:
-        f.write(formatar_cpf(cpf) + " or " + formatar_cpf2(cpf))
-
-print("Os CPFs válidos foram salvos em 'possibilidades.txt'.")
