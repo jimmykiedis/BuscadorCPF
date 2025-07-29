@@ -1,18 +1,12 @@
-import os
-import pandas as pd
 
-# Caminho absoluto baseado na posição do script
-base_dir = os.path.dirname(__file__)
-csv_path = os.path.join(base_dir, '..', '..', 'resources', 'contents', 'archives', 'chaves.csv')
-csv_path = os.path.abspath(csv_path)  # Normaliza o caminho
+print('Bem vindos ao sistema de busca de CPF no google!\n')
+print('Nota: Esse programa usa a API do Google para buscar CPF, portanto adaquira as suas chaves no site deles.\n')
 
-# Leitura do CSV
-df = pd.read_csv(csv_path)
-
-# Iteração pelas linhas do DataFrame
-for _, row in df.iterrows():
-    tipo = str(row['Tipo']).strip()  # Certifique-se de que as colunas estão corretas
-    chave = str(row['Chave']).strip()
-    qtd = int(row['Qtd'])
-
-    print(f"Tipo: {tipo} | Chave: {chave} | Qtd: {qtd}")
+resposta = input("Você é usuário premium da plataforma do googlesearch? (sim/não): ").strip().lower()
+match resposta:
+    case "sim":
+        print("Segue o curso normal do código...")
+    case "não":
+        print("Segue o fluxo da gambiarra")
+    case _:
+        print("❓ Resposta inválida. Por favor, digite 'sim' ou 'não'.")
