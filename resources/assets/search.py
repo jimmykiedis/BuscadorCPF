@@ -1,4 +1,4 @@
-from googleSearch import GoogleSearch
+from googlesearch  import search 
 from playsound import playsound
 import time
 
