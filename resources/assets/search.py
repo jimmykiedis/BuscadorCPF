@@ -1,4 +1,5 @@
 from googlesearch  import search 
+import requests
 from playsound import playsound
 import time
 
@@ -16,23 +17,27 @@ def contem_variacao(texto):
     return any(variacao in texto for variacao in VARIACOES)
 
 def buscar_google(query):
+    cx = "SEU_ID_DO_MECANISMO"  # Crie em https://programmablesearchengine.google.com/
+    url = f"https://www.googleapis.com/customsearch/v1"
+    
     params = {
         "q": query,
-        "api_key": API_KEY,
-        "hl": "pt-br",
+        "key": API_KEY,
+        "cx": cx,
+        "hl": "pt",
         "num": 10
     }
 
-    search = GoogleSearch(params)
-    results = search.get_dict()
+    response = requests.get(url, params=params)
+    data = response.json()
 
-    for result in results.get("organic_results", []):
-        titulo = result.get("title", "").lower()
-        snippet = result.get("snippet", "").lower()
-
+    for item in data.get("items", []):
+        titulo = item.get("title", "").lower()
+        snippet = item.get("snippet", "").lower()
         if contem_variacao(titulo) or contem_variacao(snippet):
             return True
     return False
+
 
 def main():
     with open(ARQUIVO_ENTRADA, "r", encoding="utf-8") as f:
