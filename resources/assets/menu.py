@@ -1,3 +1,4 @@
+from resources.assets.reciver import receber_cpf
 
 def menu():
     print('Bem vindos ao sistema de busca de CPF no google!\n')
@@ -7,8 +8,10 @@ def menu():
     match resposta:
         case "sim":
             print("Segue o curso normal do código...")
+            receber_cpf()
         case "não":
             print("Segue o fluxo da gambiarra")
+            receber_cpf()
         case _:
             print("❓ Resposta inválida. Por favor, digite 'sim' ou 'não'.")
 

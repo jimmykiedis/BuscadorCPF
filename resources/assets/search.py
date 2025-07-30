@@ -17,18 +17,26 @@ ENTRADA_CHAVES = os.path.abspath(os.path.join(BASE_DIR, '..', '..', 'contents', 
 
 def carregar_chaves():
     chaves = []
+    cx = ""
     with open(ENTRADA_CHAVES, "r", encoding="utf-8") as f:
         leitor = csv.reader(f)
-        for linha in leitor:
+        linhas = list(leitor)
+
+        if linhas:
+            cx = linhas[0][1].strip()  # A primeira linha deve conter o ID do mecanismo
+
+        for linha in linhas[1:]:  # Começa da segunda linha
             if len(linha) >= 3:
                 chave = linha[1].strip()
                 usos = int(linha[2].strip())
                 chaves.append({"chave": chave, "usos": usos})
-    return chaves
 
-def salvar_chaves(chaves):
+    return cx, chaves
+
+def salvar_chaves(cx, chaves):
     with open(ENTRADA_CHAVES, "w", newline="", encoding="utf-8") as f:
         escritor = csv.writer(f)
+        escritor.writerow(["cx", cx, ""])  # Primeira linha com o mecanismo
         for i, item in enumerate(chaves):
             escritor.writerow([chr(97 + i), item["chave"], item["usos"]])
 
@@ -49,9 +57,7 @@ def contem_variacao(texto):
     texto = texto.lower()
     return any(variacao in texto for variacao in VARIACOES)
 
-def buscar_google(query, chaves):
-    cx = "SEU_ID_DO_MECANISMO"
-    
+def buscar_google(query, chaves, cx):
     for chave in chaves:
         if chave["usos"] <= 0:
             continue
@@ -67,8 +73,6 @@ def buscar_google(query, chaves):
         try:
             response = requests.get("https://www.googleapis.com/customsearch/v1", params=params)
             data = response.json()
-
-            # Decrementa uso
             chave["usos"] -= 1
 
             for item in data.get("items", []):
@@ -84,7 +88,7 @@ def buscar_google(query, chaves):
     raise Exception("❌ Todas as chaves estão inválidas ou esgotadas.")
 
 def main():
-    chaves = carregar_chaves()
+    cx, chaves = carregar_chaves()
 
     with open(ENTRADAS_POSSIVEIS, "r", encoding="utf-8") as f:
         linhas = f.readlines()
@@ -95,7 +99,7 @@ def main():
             print(f"[{i+1}] Pesquisando: {consulta}...")
 
             try:
-                achou = buscar_google(consulta, chaves)
+                achou = buscar_google(consulta, chaves, cx)
                 if achou:
                     msg = f"✅ [{i+1}] ACHOU: {consulta}\n"
                     print("    >> Encontrado!")
@@ -111,7 +115,7 @@ def main():
 
             time.sleep(2)
 
-    salvar_chaves(chaves)
+    salvar_chaves(cx, chaves)
     print("\n📄 Todos os resultados positivos foram salvos em 'resultados_encontrados.txt'.")
 
 if __name__ == "__main__":

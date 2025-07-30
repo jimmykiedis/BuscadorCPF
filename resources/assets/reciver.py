@@ -25,7 +25,7 @@ def formatar_cpf(cpf):
 def formatar_cpf2(cpf):
     return f"{cpf[:3]}{cpf[3:6]}{cpf[6:9]}{cpf[9:]}"
 
-if __name__ == "__main__":
+def receber_cpf():
     cpf_input = input("Digite o CPF parcial (use * para desconhecidos, ex: *6.267.***-*): ")
     cpf = CatchData(cpf_input)
     print("CPF recebido:", cpf.get_partial())
