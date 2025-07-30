@@ -1,4 +1,4 @@
-from validator import *  # certifique-se que gerar_cpfs_validos está aqui
+from resources.assets.validator import gerar_cpfs_validos  # certifique-se que gerar_cpfs_validos está aqui
 import os
 
 # Diretório base (do script)
