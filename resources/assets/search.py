@@ -9,15 +9,15 @@ import os
 BASE_DIR = os.path.dirname(__file__)
 
 # Caminhos dos arquivos
-entradasPossiveis = os.path.abspath(os.path.join(BASE_DIR, '..', '..', 'contents', 'archives', 'possibilidades.txt'))
-saidaResultantes = os.path.abspath(os.path.join(BASE_DIR, '..', '..', 'contents', 'archives', 'resultados_encontrados.txt'))
-alertaSonoro = os.path.abspath(os.path.join(BASE_DIR, '..', '..', 'contents', 'archives', 'alerta.mp3'))
-entradaVariacoes = os.path.abspath(os.path.join(BASE_DIR, '..', '..', 'contents', 'archives', 'variations.csv'))
-entradaChaves = os.path.abspath(os.path.join(BASE_DIR, '..', '..', 'contents', 'archives', 'keys.csv'))
+ENTRADAS_POSSIVEIS = os.path.abspath(os.path.join(BASE_DIR, '..', '..', 'contents', 'archives', 'possibilidades.txt'))
+SAIDAS_RESULTANTES = os.path.abspath(os.path.join(BASE_DIR, '..', '..', 'contents', 'archives', 'resultados_encontrados.txt'))
+ALERTA_SONORO = os.path.abspath(os.path.join(BASE_DIR, '..', '..', 'contents', 'archives', 'alerta.mp3'))
+ENTRADAS_VARIACOES = os.path.abspath(os.path.join(BASE_DIR, '..', '..', 'contents', 'archives', 'variations.csv'))
+ENTRADA_CHAVES = os.path.abspath(os.path.join(BASE_DIR, '..', '..', 'contents', 'archives', 'keys.csv'))
 
 def carregar_chaves():
     chaves = []
-    with open(entradaChaves, "r", encoding="utf-8") as f:
+    with open(ENTRADA_CHAVES, "r", encoding="utf-8") as f:
         leitor = csv.reader(f)
         for linha in leitor:
             if len(linha) >= 3:
@@ -27,14 +27,14 @@ def carregar_chaves():
     return chaves
 
 def salvar_chaves(chaves):
-    with open(entradaChaves, "w", newline="", encoding="utf-8") as f:
+    with open(ENTRADA_CHAVES, "w", newline="", encoding="utf-8") as f:
         escritor = csv.writer(f)
         for i, item in enumerate(chaves):
             escritor.writerow([chr(97 + i), item["chave"], item["usos"]])
 
 def carregar_variacoes():
     variacoes = []
-    with open(entradaVariacoes, "r", encoding="utf-8") as f:
+    with open(ENTRADAS_VARIACOES, "r", encoding="utf-8") as f:
         leitor = csv.reader(f)
         for linha in leitor:
             for item in linha:
@@ -86,10 +86,10 @@ def buscar_google(query, chaves):
 def main():
     chaves = carregar_chaves()
 
-    with open(entradasPossiveis, "r", encoding="utf-8") as f:
+    with open(ENTRADAS_POSSIVEIS, "r", encoding="utf-8") as f:
         linhas = f.readlines()
 
-    with open(saidaResultantes, "w", encoding="utf-8") as saida:
+    with open(SAIDAS_RESULTANTES, "w", encoding="utf-8") as saida:
         for i, linha in enumerate(linhas[:2000]):
             consulta = linha.strip()
             print(f"[{i+1}] Pesquisando: {consulta}...")
@@ -101,7 +101,7 @@ def main():
                     print("    >> Encontrado!")
                     saida.write(msg)
                     try:
-                        playsound(alertaSonoro)
+                        playsound(ALERTA_SONORO)
                     except Exception as e:
                         print(f"    ⚠️ Erro ao tocar som: {e}")
                 else:
