@@ -1,14 +1,13 @@
-from googlesearch  import search 
-import requests
-from playsound import playsound
-import time
-import csv
-import os
+import requests                 #usado para fazer requisições HTTP (pesquisa na web)
+from playsound import playsound #toca um som quando encontra um resultado
+import time                     #usado para colocar pausas (sleep entre buscas)
+import csv                      #leitura e escrita de arquivos CSV
+import os                       #manipula caminhos e diretórios do sistema
 
-# Diretório base (do script)
-BASE_DIR = os.path.dirname(__file__)
+#BASE_DIR recebe o caminho do diretório desse arquivo .py
+BASE_DIR = os.path.dirname(__file__)    #dirname pega apenas o diretório, sem o nome do arquivo
 
-# Caminhos dos arquivos
+#baseado em BASE_DIR transofrma o caminho relativo dos arquivos em caminho absoluto. O join cria o endereço do do diretório se adaptando ao win/mac/lin
 ENTRADAS_POSSIVEIS = os.path.abspath(os.path.join(BASE_DIR, '..', '..', 'contents', 'archives', 'possibilidades.txt'))
 SAIDAS_RESULTANTES = os.path.abspath(os.path.join(BASE_DIR, '..', '..', 'contents', 'archives', 'resultados_encontrados.txt'))
 ALERTA_SONORO = os.path.abspath(os.path.join(BASE_DIR, '..', '..', 'contents', 'archives', 'alerta.mp3'))
