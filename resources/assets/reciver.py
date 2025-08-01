@@ -1,4 +1,5 @@
 from resources.assets.validator import gerar_cpfs_validos  # certifique-se que gerar_cpfs_validos está aqui
+from resources.assets.format import formatar_cpf, formatar_cpf2
 import os
 
 # Diretório base (do script)
@@ -16,14 +17,6 @@ class CatchData:
         cpf_list = list(self.cpf_partial)
         cpf_list[position] = digit
         self.cpf_partial = ''.join(cpf_list)
-
-# Função para formatar CPF no estilo "XXX.XXX.XXX-YY"
-def formatar_cpf(cpf):
-    return f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
-
-# Função para formatar CPF no estilo "XXXXXXXXXYY"
-def formatar_cpf2(cpf):
-    return f"{cpf[:3]}{cpf[3:6]}{cpf[6:9]}{cpf[9:]}"
 
 def receber_cpf():
     cpf_input = input("Digite o CPF parcial (use * para desconhecidos, ex: *6.267.***-*): ")
