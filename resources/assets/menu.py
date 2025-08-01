@@ -1,4 +1,4 @@
-from resources.assets.reciver import receber_cpf
+from reciver import receber_cpf
 
 def menu():
     print('Bem vindos ao sistema de busca de CPF no google!\n')

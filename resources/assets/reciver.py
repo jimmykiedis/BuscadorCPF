@@ -1,5 +1,5 @@
-from resources.assets.validator import gerar_cpfs_validos  # certifique-se que gerar_cpfs_validos está aqui
-from resources.assets.format import formatar_cpf, formatar_cpf2
+from validator import gerar_cpfs_validos  # certifique-se que gerar_cpfs_validos está aqui
+from format import formatar_cpf, formatar_cpf2
 import os
 
 # Diretório base (do script)
