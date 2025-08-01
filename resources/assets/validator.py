@@ -47,9 +47,4 @@ def gerar_cpfs_validos(cpf_parcial):
     return cpfs_possiveis
 
 # --- Teste rápido ---
-if __name__ == "__main__":
-    parcial = input("Digite o CPF parcial (use * para desconhecidos): ")
-    validos = gerar_cpfs_validos(parcial)
-    print(f"Foram gerados {len(validos)} CPFs válidos:")
-    for c in validos[:10]:  # mostra só os 10 primeiros pra não lotar a tela
-        print(c)
+

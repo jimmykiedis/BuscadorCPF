@@ -23,7 +23,7 @@ def receber_cpf():
     cpf = CatchData(cpf_input)
     print("CPF recebido:", cpf.get_partial())
 
-    cpfs_possiveis = gerar_cpfs_validos()  # usa o input se fizer sentido dentro dessa função
+    cpfs_possiveis = gerar_cpfs_validos(cpf.get_partial())
 
     with open(SAIDA_POSSIBILIDADES, "w", encoding="utf-8") as f:
         for cpf in cpfs_possiveis:
